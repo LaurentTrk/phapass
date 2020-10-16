@@ -3,11 +3,15 @@ use serde::{Serialize, Deserialize};
 use crate::contracts;
 use crate::types::TxRef;
 use crate::TransactionStatus;
+use crate::contracts::{AccountIdWrapper};
+use crate::std::collections::BTreeMap;
+use crate::std::string::String;
 
 /// HelloWorld contract states.
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct HelloWorld {
     counter: u32,
+    notes: BTreeMap<AccountIdWrapper, String>,
 }
 
 /// The commands that the contract accepts from the blockchain. Also called transactions.
@@ -18,6 +22,10 @@ pub enum Command {
     Increment {
         value: u32,
     },
+    /// Set the secret note of the current user
+    SetNote {
+        note: String,
+    }
 }
 
 /// The errors that the contract could throw for some queries
@@ -33,6 +41,8 @@ pub enum Error {
 pub enum Request {
     /// Ask for the value of the counter
     GetCount,
+    // Ask for the secret note
+    GetNote,
 }
 
 /// Query responses.
@@ -41,6 +51,10 @@ pub enum Response {
     /// Returns the value of the counter
     GetCount {
         count: u32,
+    },
+    /// Returns the value of the secret note
+    GetNote {
+        note: String,
     },
     /// Something wrong happened
     Error(Error)
@@ -68,6 +82,15 @@ impl contracts::Contract<Command, Request, Response> for HelloWorld {
                 // Returns TransactionStatus::Ok to indicate a successful transaction
                 TransactionStatus::Ok
             },
+            // Handle the `SetNote` command with one parameter
+            Command::SetNote { note } => {
+                // Get the current user
+                let current_user = AccountIdWrapper(_origin.clone());
+                // Set the value of the user.
+                self.notes.insert(current_user, note);
+                // Returns TransactionStatus::Ok to indicate a successful transaction
+                TransactionStatus::Ok
+            },
         }
     }
 
@@ -75,10 +98,21 @@ impl contracts::Contract<Command, Request, Response> for HelloWorld {
     fn handle_query(&mut self, _origin: Option<&chain::AccountId>, req: Request) -> Response {
         let inner = || -> Result<Response, Error> {
             match req {
-                // Hanlde the `GetCount` request.
+                // Handle the `GetCount` request.
                 Request::GetCount => {
                     // Respond with the counter in the contract states.
                     Ok(Response::GetCount { count: self.counter })
+                },
+                // Handle the `GetNote` request.
+                Request::GetNote => {
+                    // Get the current user
+                    let current_user = AccountIdWrapper(_origin.unwrap().clone());
+                    if self.notes.contains_key(&current_user) {
+                        // Respond with the note in the notes.
+                        let note = self.notes.get(&current_user);
+                        return Ok(Response::GetNote { note: note.unwrap().clone() })
+                    }
+                    Err(Error::NotAuthorized)
                 },
             }
         };
