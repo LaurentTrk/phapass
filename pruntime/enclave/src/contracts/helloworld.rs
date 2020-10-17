@@ -95,7 +95,7 @@ impl contracts::Contract<Command, Request, Response> for HelloWorld {
     }
 
     // Handles a direct query and responds to the query. It shouldn't modify the contract states.
-    fn handle_query(&mut self, _origin: Option<&chain::AccountId>, req: Request) -> Response {
+    fn handle_query(&mut self, origin: Option<&chain::AccountId>, req: Request) -> Response {
         let inner = || -> Result<Response, Error> {
             match req {
                 // Handle the `GetCount` request.
@@ -106,11 +106,13 @@ impl contracts::Contract<Command, Request, Response> for HelloWorld {
                 // Handle the `GetNote` request.
                 Request::GetNote => {
                     // Get the current user
-                    let current_user = AccountIdWrapper(_origin.unwrap().clone());
-                    if self.notes.contains_key(&current_user) {
-                        // Respond with the note in the notes.
-                        let note = self.notes.get(&current_user);
-                        return Ok(Response::GetNote { note: note.unwrap().clone() })
+                    if let Some(account) = origin {
+                        let current_user = AccountIdWrapper(account.clone());
+                        if self.notes.contains_key(&current_user) {
+                            // Respond with the note in the notes.
+                            let note = self.notes.get(&current_user);
+                            return Ok(Response::GetNote { note: note.unwrap().clone() })
+                        }
                     }
                     Err(Error::NotAuthorized)
                 },
