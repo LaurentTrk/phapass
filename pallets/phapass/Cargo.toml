@@ -1,0 +1,48 @@
+[package]
+authors = ['Laurent Turek <https://github.com/LaurentTrk>']
+edition = '2018'
+name = 'pallet-phapass'
+version = "0.0.1"
+license = "Apache 2.0"
+homepage = "https://ltk.codes/"
+repository = "https://github.com/LaurentTrk/phapass"
+
+[dependencies]
+# third-party dependencies
+codec = { package = "parity-scale-codec", version = "2.1.0", default-features = false, features = ["derive", "max-encoded-len"] }
+serde = { version = "1.0.101", optional = true }
+
+# primitives
+sp-std = { default-features = false, path = "../../substrate/primitives/std" }
+sp-runtime = { default-features = false, path = "../../substrate/primitives/runtime" }
+sp-io = { default-features = false, path = "../../substrate/primitives/io" }
+sp-core = { default-features = false, path = "../../substrate/primitives/core" }
+sp-arithmetic = { default-features = false, path = "../../substrate/primitives/arithmetic" }
+
+# frame dependencies
+frame-support = { default-features = false, path = "../../substrate/frame/support" }
+frame-system = { default-features = false, path = "../../substrate/frame/system" }
+
+phala-types = { path = "../../crates/phala-types", default-features = false }
+phala-pallets = { path = "../phala", default-features = false }
+hex = { version = "0.4", default-features = false }
+
+[dev-dependencies]
+hex-literal = "0.3"
+pallet-balances = { default-features = false, path = "../../substrate/frame/balances" }
+pallet-timestamp = { path = "../../substrate/frame/timestamp" }
+
+[features]
+default = ["std"]
+std = [
+	"codec/std",
+	"serde",
+	"sp-std/std",
+	"sp-runtime/std",
+	"sp-io/std",
+	"sp-core/std",
+	"sp-arithmetic/std",
+	"frame-support/std",
+	"frame-system/std",
+	"pallet-balances/std",
+]

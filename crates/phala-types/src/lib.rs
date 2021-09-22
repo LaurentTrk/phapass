@@ -236,6 +236,27 @@ pub mod messaging {
         }
     }
 
+    // Messages: PhaPass
+
+    bind_topic!(Vault<AccountId>, b"^phala/phapass/vault");
+    #[derive(Encode, Decode, Clone, Debug)]
+    pub struct Vault<AccountId> {
+        pub owner: AccountId,
+        pub secret : String,
+    }
+
+    bind_contract32!(VaultCommand<AccountId>, contract::PHAPASS);
+    #[derive(Encode, Decode, Debug)]
+    pub enum VaultCommand<AccountId> {
+        CreateCommand {vault: Vault<AccountId>},
+    }
+
+    impl<AccountId> VaultCommand<AccountId> {
+        pub fn create_vault(vault: Vault<AccountId>) -> Self {
+            Self::CreateCommand { vault }
+        }
+    }
+   
     /// A fixed point number with 64 integer bits and 64 fractional bits.
     pub type U64F64Bits = u128;
 

@@ -108,6 +108,8 @@ pub use phala_pallets::{
 pub use pallet_bridge;
 pub use pallet_bridge_transfer;
 
+pub use pallet_phapass;
+
 #[cfg(not(feature = "native-nostd-hasher"))]
 type Hasher = sp_runtime::traits::BlakeTwo256;
 #[cfg(feature = "native-nostd-hasher")]
@@ -1075,6 +1077,11 @@ impl pallet_bridge_transfer::Config for Runtime {
 	type OnFeePay = Treasury;
 }
 
+impl pallet_phapass::Config for Runtime {
+	type Event = Event;
+	type Currency = Balances;
+}
+
 parameter_types! {
 	pub ExpectedBlockTimeSec: u32 = SecsPerBlock::get() as u32;
 	pub const MinMiningStaking: Balance = 1 * PHAS;
@@ -1170,6 +1177,7 @@ construct_runtime!(
 		Lottery: pallet_lottery::{Pallet, Call, Storage, Event<T>},
 		ChainBridge: pallet_bridge::{Pallet, Call, Storage, Event<T>},
 		BridgeTransfer: pallet_bridge_transfer::{Pallet, Call, Event<T>, Storage},
+		PhaPass: pallet_phapass::{Pallet, Call, Event<T>, Storage},
 		// Phala new pallets
 		PhalaMq: pallet_mq::{Pallet, Call, Storage},
 		PhalaRegistry: pallet_registry::{Pallet, Call, Event, Storage, Config<T>},
