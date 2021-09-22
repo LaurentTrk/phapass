@@ -101,7 +101,7 @@ pub mod pallet {
 		StorageValue<_, Vec<H256>, ValueQuery>;
 
 	#[pallet::event]
-	#[pallet::generate_deposit(pub(super) fn deposit_event)]
+	// #[pallet::generate_deposit(pub(super) fn deposit_event)]
 	pub enum Event {
 		GatekeeperAdded(WorkerPublicKey),
 	}
