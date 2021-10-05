@@ -12,3 +12,4 @@ See the [Phala instructions](./README.phala.md) on how to build and run the bloc
 The frontend part of this project is served by a [Chrome Extension](https://developer.chrome.com/docs/extensions/) based on the [Phala JS SDK](https://github.com/Phala-Network/js-sdk). The related code can be found in [this fork](https://github.com/LaurentTrk/js-sdk).
 
 
+:warning: As a Hackathon project, this is not ready for production use. Use it at your own risks :)
