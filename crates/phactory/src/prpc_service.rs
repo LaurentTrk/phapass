@@ -387,6 +387,11 @@ impl<Platform: pal::Platform> Phactory<Platform> {
                 contracts::BTC_PRICE_BOT,
                 contracts::btc_price_bot::BtcPriceBot::new()
             );
+
+            install_contract!(
+                contracts::PHAPASS,
+                contracts::phapass::PhaPass::new()
+            );
         }
 
         let mut runtime_state = RuntimeState {

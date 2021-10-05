@@ -258,6 +258,15 @@ pub mod messaging {
         ReportBtcPrice,
     }
 
+    bind_contract32!(PhaPassCommand, contract::PHAPASS);
+    #[derive(Debug, Clone, Encode, Decode)]
+    pub enum PhaPassCommand {
+        /// Create a new vault 
+        CreateVault,
+        /// Add a credential
+        AddCredential { url: String, username: String, password: String },
+    }
+
     /// A fixed point number with 64 integer bits and 64 fractional bits.
     pub type U64F64Bits = u128;
 

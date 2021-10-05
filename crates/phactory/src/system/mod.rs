@@ -57,6 +57,9 @@ pub enum TransactionError {
     FailedToCalculateBalance,
     BadChainId,
     TransferringNotAllowed,
+    // For Phapass
+    VaultAlreadyExists,
+    NoVault,
 }
 
 impl From<BadOrigin> for TransactionError {

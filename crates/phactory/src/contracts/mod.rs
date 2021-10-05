@@ -24,6 +24,8 @@ pub mod guess_number;
 
 pub mod btc_price_bot;
 
+pub mod phapass;
+
 pub use phala_types::contract::*;
 
 pub fn account_id_from_hex(s: &str) -> Result<AccountId> {
