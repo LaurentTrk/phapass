@@ -21,6 +21,11 @@ pub struct Credential {
     password: String,
 }
 
+#[derive(Encode, Decode, Debug, Clone)]
+pub struct ListedCredential {
+    url: String,
+    username: String,
+}
 pub struct UserVault {
     credentials: BTreeMap<String, Credential>,
 }
@@ -35,12 +40,15 @@ pub enum Request {
     HasAVault,
     /// 
     GetCredential { url: String},
+    /// 
+    ListCredentials,
 }
 
 #[derive(Encode, Decode, Debug, Clone)]
 pub enum Response {
     HasAVault(bool),
-    ExistingCredential(Credential)
+    ExistingCredential(Credential),
+    Credentials(Vec<ListedCredential>)
 }
 
 #[derive(Encode, Decode, Debug)]
@@ -52,11 +60,18 @@ pub enum Error {
     NotAuthorized,
 }
 
+impl ListedCredential {
+    pub fn new(url: String, username: String) -> Self {
+        ListedCredential  { url, username}
+    }
+}
+
 impl Credential {
     pub fn new(username: String, password: String) -> Self {
         Credential  { username, password}
     }
 }
+
 
 impl UserVault {
     pub fn new() -> Self {
@@ -134,6 +149,7 @@ impl contracts::NativeContract for PhaPass {
         origin: Option<&chain::AccountId>,
         req: Request,
     ) -> Result<Response, Error> {
+        info!("*******************************************************************************************");
         info!("Query received: {:?}", &req);
         match req {
             Request::HasAVault => {
@@ -149,10 +165,25 @@ impl contracts::NativeContract for PhaPass {
                 info!("owner: {:?}", &owner);
                 if let Some(userVault) = self.vaults.get(owner) {
                     if let Some(credential) = userVault.credentials.get(&url) {
+                        info!("Credential: {:?}", credential.clone());
                         Ok(Response::ExistingCredential(credential.clone()))
                     }else{
                         Err(Error::NoCredential)
                     }
+                } else {
+                    Err(Error::NoVault)
+                }
+            },
+            Request::ListCredentials => {
+                info!("ListCredentials Query received");
+                let owner = origin.ok_or(Error::OriginUnavailable)?;
+                info!("owner: {:?}", &owner);
+                if let Some(userVault) = self.vaults.get(owner) {
+                    let mut credentialsList = Vec::<ListedCredential>::new();
+                    for (url, credential) in userVault.credentials.iter(){
+                        credentialsList.push(ListedCredential::new(url.clone(), credential.username.clone()))        
+                    }
+                    Ok(Response::Credentials(credentialsList))
                 } else {
                     Err(Error::NoVault)
                 }
