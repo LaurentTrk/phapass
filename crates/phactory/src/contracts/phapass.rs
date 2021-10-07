@@ -134,6 +134,18 @@ impl contracts::NativeContract for PhaPass {
                 } else {
                     Err(TransactionError::NoVault)
                 }
+            },
+            Command::RemoveCredential { url } => {
+                if let Some(userVault) = self.vaults.get_mut(&sender) {
+                    if let Some(credential) = userVault.credentials.get(&url) {
+                        userVault.credentials.remove(&url);
+                        Ok(())
+                    }else{
+                        Err(TransactionError::NoCredential)
+                    }
+                } else {
+                    Err(TransactionError::NoVault)
+                }
             }
         }
     }

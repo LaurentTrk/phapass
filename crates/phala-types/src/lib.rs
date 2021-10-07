@@ -265,6 +265,8 @@ pub mod messaging {
         CreateVault,
         /// Add a credential
         AddCredential { url: String, username: String, password: String },
+        /// Remove a credential
+        RemoveCredential { url: String },
     }
 
     /// A fixed point number with 64 integer bits and 64 fractional bits.

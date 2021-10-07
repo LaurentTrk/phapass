@@ -60,6 +60,7 @@ pub enum TransactionError {
     // For Phapass
     VaultAlreadyExists,
     NoVault,
+    NoCredential
 }
 
 impl From<BadOrigin> for TransactionError {
