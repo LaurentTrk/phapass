@@ -262,7 +262,7 @@ pub mod messaging {
     #[derive(Debug, Clone, Encode, Decode)]
     pub enum PhaPassCommand {
         /// Create a new vault 
-        CreateVault,
+        CreateVault { keys: String },
         /// Add a credential
         AddCredential { url: String, username: String, password: String },
         /// Remove a credential

@@ -3,8 +3,6 @@ use anyhow::Result;
 use log::info;
 use parity_scale_codec::{Decode, Encode};
 use phala_mq::MessageOrigin;
-use sp_core::hashing;
-use std::convert::TryInto;
 
 use super::{TransactionError, TransactionResult};
 use crate::contracts;
@@ -27,6 +25,7 @@ pub struct ListedCredential {
     username: String,
 }
 pub struct UserVault {
+    keys: String,
     credentials: BTreeMap<String, Credential>,
 }
 
@@ -36,17 +35,16 @@ pub struct PhaPass {
 
 #[derive(Encode, Decode, Debug, Clone)]
 pub enum Request {
-    /// User has a vault ?
     HasAVault,
-    /// 
+    GetKeys,
     GetCredential { url: String},
-    /// 
     ListCredentials,
 }
 
 #[derive(Encode, Decode, Debug, Clone)]
 pub enum Response {
     HasAVault(bool),
+    Keys(String),
     ExistingCredential(Credential),
     Credentials(Vec<ListedCredential>)
 }
@@ -74,8 +72,9 @@ impl Credential {
 
 
 impl UserVault {
-    pub fn new() -> Self {
+    pub fn new(keys: String) -> Self {
         UserVault {
+            keys,
             credentials: BTreeMap::new(),
         }
     }
@@ -108,7 +107,7 @@ impl contracts::NativeContract for PhaPass {
     /// * `cmd` - The on-chain Command to process
     fn handle_command(
         &mut self,
-        context: &mut NativeContext,
+        _context: &mut NativeContext,
         origin: MessageOrigin,
         cmd: Command,
     ) -> TransactionResult {
@@ -119,26 +118,26 @@ impl contracts::NativeContract for PhaPass {
             _ => return Err(TransactionError::BadOrigin),
         };
         match cmd {
-            Command::CreateVault => {
+            Command::CreateVault { keys } => {
                 if self.vaults.contains_key(&sender){
                     return Err(TransactionError::VaultAlreadyExists);
                 }
-                self.vaults.insert(sender, UserVault::new());
+                self.vaults.insert(sender, UserVault::new(keys));
                 Ok(())
             },
             Command::AddCredential { url, username, password } => {
-                if let Some(userVault) = self.vaults.get_mut(&sender) {
+                if let Some(user_vault) = self.vaults.get_mut(&sender) {
                     let credential = Credential::new(username, password);
-                    userVault.credentials.insert(url, credential);
+                    user_vault.credentials.insert(url, credential);
                     Ok(())
                 } else {
                     Err(TransactionError::NoVault)
                 }
             },
             Command::RemoveCredential { url } => {
-                if let Some(userVault) = self.vaults.get_mut(&sender) {
-                    if let Some(credential) = userVault.credentials.get(&url) {
-                        userVault.credentials.remove(&url);
+                if let Some(user_vault) = self.vaults.get_mut(&sender) {
+                    if user_vault.credentials.contains_key(&url) {
+                        user_vault.credentials.remove(&url);
                         Ok(())
                     }else{
                         Err(TransactionError::NoCredential)
@@ -168,15 +167,24 @@ impl contracts::NativeContract for PhaPass {
                 info!("HasAVault Query received: {:?}", &req);
                 let owner = origin.ok_or(Error::OriginUnavailable)?;
                 info!("owner: {:?}", &owner);
-                let hasAVault = self.vaults.contains_key(owner);
-                Ok(Response::HasAVault(hasAVault))
+                Ok(Response::HasAVault(self.vaults.contains_key(owner)))
+            },
+            Request::GetKeys => {
+                info!("GetKeys Query received");
+                let owner = origin.ok_or(Error::OriginUnavailable)?;
+                info!("owner: {:?}", &owner);
+                if let Some(user_vault) = self.vaults.get(owner) {
+                    Ok(Response::Keys(user_vault.keys.clone()))
+                } else {
+                    Err(Error::NoVault)
+                }
             },
             Request::GetCredential{ url } => {
                 info!("GetCredential Query received");
                 let owner = origin.ok_or(Error::OriginUnavailable)?;
                 info!("owner: {:?}", &owner);
-                if let Some(userVault) = self.vaults.get(owner) {
-                    if let Some(credential) = userVault.credentials.get(&url) {
+                if let Some(user_vault) = self.vaults.get(owner) {
+                    if let Some(credential) = user_vault.credentials.get(&url) {
                         info!("Credential: {:?}", credential.clone());
                         Ok(Response::ExistingCredential(credential.clone()))
                     }else{
@@ -190,12 +198,12 @@ impl contracts::NativeContract for PhaPass {
                 info!("ListCredentials Query received");
                 let owner = origin.ok_or(Error::OriginUnavailable)?;
                 info!("owner: {:?}", &owner);
-                if let Some(userVault) = self.vaults.get(owner) {
-                    let mut credentialsList = Vec::<ListedCredential>::new();
-                    for (url, credential) in userVault.credentials.iter(){
-                        credentialsList.push(ListedCredential::new(url.clone(), credential.username.clone()))        
+                if let Some(user_vault) = self.vaults.get(owner) {
+                    let mut credentials_list = Vec::<ListedCredential>::new();
+                    for (url, credential) in user_vault.credentials.iter(){
+                        credentials_list.push(ListedCredential::new(url.clone(), credential.username.clone()))        
                     }
-                    Ok(Response::Credentials(credentialsList))
+                    Ok(Response::Credentials(credentials_list))
                 } else {
                     Err(Error::NoVault)
                 }
