@@ -27,7 +27,7 @@ The frontend part of this project is served by a [Chrome Extension](https://deve
 
 Technically, the project is all about developing a Phala contract to store and deal with user credentials, and a Chrome Browser Extension that will use this contract.
 
-![](./PhaPass Components.png)
+![](./PhaPass.Components.png)
 
 * **PhaPass Confidential Contract** : the contract running in the Phala blockchain.
 * **Background Page** : this page interacts with the confidential contract using the Phala JS SDK. It serves as a 'backend' for the content script and the options page. 
