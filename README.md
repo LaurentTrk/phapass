@@ -13,3 +13,31 @@ The frontend part of this project is served by a [Chrome Extension](https://deve
 
 
 :warning: As a Hackathon project, this is not ready for production use. Use it at your own risks :)
+
+## Inspiration
+
+
+
+## What it does
+
+### Store your passwords in a Phala confidential contract
+
+
+### From a technical point of view
+
+Technically, the project is all about developing a Phala contract to store and deal with user credentials, and a Chrome Browser Extension that will use this contract.
+
+![](./PhaPass Components.png)
+
+* **PhaPass Confidential Contract** : the contract running in the Phala blockchain.
+* **Background Page** : this page interacts with the confidential contract using the Phala JS SDK. It serves as a 'backend' for the content script and the options page. 
+* **Option Page**: the unique UI of the extension. It displays a tutorial for the user vault creation, or the list of the user credentials.
+* **Content Script**: this code is injected into the visited page, it detects manually input credentials to save to the user vault, or inject already saved credentials in visited page.
+
+## How I built it
+
+### xxxx
+
+## Challenges I ran into
+
+## What's next
