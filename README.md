@@ -32,6 +32,9 @@ And so here is the **PhaPass** project, which seeks to demonstrate how you can u
 ### Store your passwords in a Phala confidential contract
 
 
+
+
+
 ### From a technical point of view
 
 Technically, the project is all about developing a Phala contract to store and deal with user credentials, and a Chrome Browser Extension that will use this contract.
@@ -45,8 +48,43 @@ Technically, the project is all about developing a Phala contract to store and d
 
 ## How I built it
 
-### xxxx
+### Create a minimal contract 
+
+### Create a minimal Chrome extension
+
+### Change the Polkadot.JS extension
+
+### Integrate the Phala JS SDK
+
+### Enhance the PhaPass contract
+
+### Add local encryption
+
+### Enhance extension UI
+
+### Fix bugs ;)
+
 
 ## Challenges I ran into
 
+* Integrating the JS SDK in the extension 
+* Calling the Polkadot.JS extension from another extension
+* Implementing the decryption feature to the Polkadot.JS extension (still a _work in progress_)
+* Coding for the first time in Typescript
+
 ## What's next
+
+The minimal viable product works :) but it's still a lot of work to do :
+
+* At this time, only simple HTML form is correcly detected, there is so many ways to input passwords in web pages ! And we should support them all...
+* Not to mention that we need to support others browsers.
+* Some features need to be integrated to the Polkadot JS extension : [external listeners](https://github.com/polkadot-js/extension/issues/849) and encryption/decryption
+* [sr25519 account pairs seems not supported for encryption/decryption](https://github.com/polkadot-js/common/issues/1124) which is a strong limitation as sr25519 is the default type for Polkadot.
+* As soon as public contracts are available on Phala (Ink! Contract ?), it _could_ make sense to use them.
+* _(Most of)_ Edge/error cases are not handled correclty.
+* The extension needs to be [published](https://developer.chrome.com/docs/webstore/publish/). 
+* **Basic features:** add credential manually, change credential, generate random password, lock vault
+* **'Nice to have' features:** delegate your password to another user, import/export
+
+I hope you enjoy this project as much as I enjoyed to do it !
+Thank you for reading me.
