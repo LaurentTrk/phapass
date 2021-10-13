@@ -2381,6 +2381,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-phapass"
+version = "0.0.1"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "hex",
+ "parity-scale-codec",
+ "phala-pallets",
+ "phala-types",
+ "serde",
+ "sp-arithmetic",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-proxy"
 version = "4.0.0-dev"
 dependencies = [
@@ -2904,6 +2922,7 @@ dependencies = [
  "pallet-mq-runtime-api",
  "pallet-multisig",
  "pallet-offences",
+ "pallet-phapass",
  "pallet-proxy",
  "pallet-randomness-collective-flip",
  "pallet-recovery",
