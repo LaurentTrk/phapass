@@ -3,6 +3,7 @@ use anyhow::Result;
 use log::info;
 use parity_scale_codec::{Decode, Encode};
 use phala_mq::MessageOrigin;
+use phala_types::messaging::{PhaPassCommandEvent, PhaPassCommandResult, PhaPassCommandType};
 
 use super::{TransactionError, TransactionResult};
 use crate::contracts;
@@ -87,6 +88,28 @@ impl PhaPass {
         }
     }
 
+    fn transaction_to_command_result(transaction_result: &TransactionResult) -> PhaPassCommandResult {
+        match transaction_result {
+            Ok(_) => return PhaPassCommandResult::Success,
+            Err(error_value) => {
+                match error_value {
+                    TransactionError::VaultAlreadyExists => return PhaPassCommandResult::VaultAlreadyExists,
+                    TransactionError::NoCredential => return PhaPassCommandResult::NoCredential,
+                    TransactionError::NoVault => return PhaPassCommandResult::NoVault,
+                    _ => return PhaPassCommandResult::UnknownError,
+                }
+            }
+        }
+    }
+
+    fn command_type(cmd: &Command) -> PhaPassCommandType {
+        match cmd {
+            PhaPassCommand::AddCredential{ url, username, password } => return PhaPassCommandType::AddCredential,
+            PhaPassCommand::CreateVault{ keys } => return PhaPassCommandType::CreateVault,
+            PhaPassCommand::RemoveCredential{ url } => return PhaPassCommandType::RemoveCredential,
+        }
+    }
+
     // Nota : we add this method for unit testing purpose, as the NativeContext
     // object needed in the NativeContract::handle_command() is not easily mockable
     fn handle_command(&mut self,
@@ -151,11 +174,20 @@ impl contracts::NativeContract for PhaPass {
     /// * `cmd` - The on-chain Command to process
     fn handle_command(
         &mut self,
-        _context: &mut NativeContext,
+        context: &mut NativeContext,
         origin: MessageOrigin,
         cmd: Command,
     ) -> TransactionResult {
-        self.handle_command(origin, cmd)
+        let transaction_result = self.handle_command(origin, cmd.clone());
+        let command_result = PhaPass::transaction_to_command_result(&transaction_result);
+        let data = PhaPassCommandEvent {
+            command: PhaPass::command_type(&cmd),
+            result: command_result,
+        };
+        info!("[PhaPass] Sending command event: {:?}", &data);
+        context.mq().send(&data);
+        info!("[PhaPass] Command result: {:?}", &transaction_result);
+        transaction_result
     }
 
     /// Handle a direct Query and respond to it. It shouldn't modify the contract state.
