@@ -11,9 +11,6 @@ where
     Msg: Decode + BindTopic,
     Func: Fn(DecodedMessage<Msg>) -> DispatchResult,
 {
-    // info!("[PhaPass] *******************************************************************************************");
-    // info!("[PhaPass] Message routing: {:?}", &Msg::topic());
-
     if message.destination.path() == &Msg::topic() {
         let msg: DecodedMessage<Msg> = message
             .decode()
@@ -27,9 +24,7 @@ impl pallet_mq::QueueNotifyConfig for MessageRouteConfig {
     /// Handles an incoming message
     fn on_message_received(message: &Message) -> DispatchResult {
         use super::*;
-        // info!("[PhaPass] *******************************************************************************************");
-        info!("[PhaPass] on_message_received: {:?}", &message);
-            macro_rules! route_handlers {
+        macro_rules! route_handlers {
             ($($handler: path,)+) => {
                 $(try_dispatch($handler, message)?;)+
             }
