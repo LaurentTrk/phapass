@@ -259,7 +259,7 @@ pub mod messaging {
     }
 
     bind_contract32!(PhaPassCommand, contract::PHAPASS);
-    #[derive(Debug, Clone, Encode, Decode)]
+    #[derive(Debug, Clone, Encode, Decode, PartialEq)]
     pub enum PhaPassCommand {
         /// Create a new vault 
         CreateVault { keys: String },
@@ -269,6 +269,31 @@ pub mod messaging {
         RemoveCredential { url: String },
     }
 
+    #[derive(Debug, Clone, Encode, Decode, PartialEq)]
+    pub enum PhaPassCommandType {
+        /// Create a new vault 
+        CreateVault,
+        /// Add a credential
+        AddCredential,
+        /// Remove a credential
+        RemoveCredential,
+    }   
+
+    #[derive(Debug, Clone, Encode, Decode, PartialEq)]
+    pub enum PhaPassCommandResult {
+        Success,
+        VaultAlreadyExists,
+        NoVault,
+        NoCredential,
+        UnknownError
+    }
+
+    bind_topic!(PhaPassCommandEvent, b"^phala/phapass/command");
+    #[derive(Debug, Clone, Encode, Decode, PartialEq)]
+    pub struct PhaPassCommandEvent {
+        pub command: PhaPassCommandType,
+        pub result: PhaPassCommandResult,
+    }    
     /// A fixed point number with 64 integer bits and 64 fractional bits.
     pub type U64F64Bits = u128;
 
