@@ -262,11 +262,11 @@ pub mod messaging {
     #[derive(Debug, Clone, Encode, Decode, PartialEq)]
     pub enum PhaPassCommand {
         /// Create a new vault 
-        CreateVault { keys: String },
+        CreateVault { command_id: String, keys: String },
         /// Add a credential
-        AddCredential { url: String, username: String, password: String },
+        AddCredential { command_id: String, url: String, username: String, password: String },
         /// Remove a credential
-        RemoveCredential { url: String },
+        RemoveCredential { command_id: String, url: String },
     }
 
     #[derive(Debug, Clone, Encode, Decode, PartialEq)]
@@ -291,6 +291,7 @@ pub mod messaging {
     bind_topic!(PhaPassCommandEvent, b"^phala/phapass/command");
     #[derive(Debug, Clone, Encode, Decode, PartialEq)]
     pub struct PhaPassCommandEvent {
+        pub command_id: String, 
         pub command: PhaPassCommandType,
         pub result: PhaPassCommandResult,
     }    

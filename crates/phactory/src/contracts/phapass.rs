@@ -104,9 +104,17 @@ impl PhaPass {
 
     fn command_type(cmd: &Command) -> PhaPassCommandType {
         match cmd {
-            PhaPassCommand::AddCredential{ url, username, password } => return PhaPassCommandType::AddCredential,
-            PhaPassCommand::CreateVault{ keys } => return PhaPassCommandType::CreateVault,
-            PhaPassCommand::RemoveCredential{ url } => return PhaPassCommandType::RemoveCredential,
+            PhaPassCommand::AddCredential{ command_id, url, username, password } => return PhaPassCommandType::AddCredential,
+            PhaPassCommand::CreateVault{ command_id, keys } => return PhaPassCommandType::CreateVault,
+            PhaPassCommand::RemoveCredential{ command_id, url } => return PhaPassCommandType::RemoveCredential,
+        }
+    }
+
+    fn command_id(cmd: &Command) -> String {
+        match cmd {
+            PhaPassCommand::AddCredential{ command_id, url, username, password } => return command_id.clone(),
+            PhaPassCommand::CreateVault{ command_id, keys } => return command_id.clone(),
+            PhaPassCommand::RemoveCredential{ command_id, url } => return command_id.clone(),
         }
     }
 
@@ -123,14 +131,14 @@ impl PhaPass {
             _ => return Err(TransactionError::BadOrigin),
         };
         match cmd {
-            Command::CreateVault { keys } => {
+            Command::CreateVault { command_id, keys } => {
                 if self.vaults.contains_key(&sender){
                     return Err(TransactionError::VaultAlreadyExists);
                 }
                 self.vaults.insert(sender, UserVault::new(keys));
                 Ok(())
             },
-            Command::AddCredential { url, username, password } => {
+            Command::AddCredential { command_id, url, username, password } => {
                 if let Some(user_vault) = self.vaults.get_mut(&sender) {
                     let credential = Credential::new(username, password);
                     user_vault.credentials.insert(url, credential);
@@ -139,7 +147,7 @@ impl PhaPass {
                     Err(TransactionError::NoVault)
                 }
             },
-            Command::RemoveCredential { url } => {
+            Command::RemoveCredential { command_id, url } => {
                 if let Some(user_vault) = self.vaults.get_mut(&sender) {
                     if user_vault.credentials.contains_key(&url) {
                         user_vault.credentials.remove(&url);
@@ -181,6 +189,7 @@ impl contracts::NativeContract for PhaPass {
         let transaction_result = self.handle_command(origin, cmd.clone());
         let command_result = PhaPass::transaction_to_command_result(&transaction_result);
         let data = PhaPassCommandEvent {
+            command_id: PhaPass::command_id(&cmd),
             command: PhaPass::command_type(&cmd),
             result: command_result,
         };
