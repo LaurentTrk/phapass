@@ -24,7 +24,7 @@ All this remains very centralized...
 
 I discovered [Phala](https://phala.network/) last year during the [Polkadot Hello World hackathon](https://gitcoin.co/hackathon/polkadot/onboard), and I thought that this decentralized blockchain and its [trusted and confidential](https://phala.network/en/technology) nature could be the perfect candidate for an experimentation around password management.
 
-And so here is the **PhaPass** project, which seeks to demonstrate how you can use the Phala blockchain to store your passwords and use them directly in your favorite browser :)
+And so here is the **PhaPass** project, which aims to demonstrate how you can use the Phala blockchain to store your passwords and use them directly in your favorite browser :)
 
 
 ## What it does
@@ -87,4 +87,5 @@ The minimal viable product works :) but it's still a lot of work to do :
 * **'Nice to have' features:** delegate your password to another user, import/export
 
 I hope you enjoy this project as much as I enjoyed to do it !
+
 Thank you for reading me.
