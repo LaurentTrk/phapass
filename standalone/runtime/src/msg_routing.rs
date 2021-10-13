@@ -2,6 +2,7 @@ use super::pallet_mq;
 use codec::Decode;
 use frame_support::dispatch::{DispatchError, DispatchResult};
 use phala_types::messaging::{BindTopic, DecodedMessage, Message};
+use frame_support::log::info;
 
 pub struct MessageRouteConfig;
 
@@ -10,6 +11,9 @@ where
     Msg: Decode + BindTopic,
     Func: Fn(DecodedMessage<Msg>) -> DispatchResult,
 {
+    // info!("[PhaPass] *******************************************************************************************");
+    // info!("[PhaPass] Message routing: {:?}", &Msg::topic());
+
     if message.destination.path() == &Msg::topic() {
         let msg: DecodedMessage<Msg> = message
             .decode()
@@ -23,7 +27,9 @@ impl pallet_mq::QueueNotifyConfig for MessageRouteConfig {
     /// Handles an incoming message
     fn on_message_received(message: &Message) -> DispatchResult {
         use super::*;
-        macro_rules! route_handlers {
+        // info!("[PhaPass] *******************************************************************************************");
+        info!("[PhaPass] on_message_received: {:?}", &message);
+            macro_rules! route_handlers {
             ($($handler: path,)+) => {
                 $(try_dispatch($handler, message)?;)+
             }
@@ -34,6 +40,7 @@ impl pallet_mq::QueueNotifyConfig for MessageRouteConfig {
             PhalaMining::on_gk_message_received,
             PhalaMining::on_mining_message_received,
             BridgeTransfer::on_message_received,
+            PhaPass::on_message_received,
             // KittyStorage::on_message_received,
         };
         Ok(())
