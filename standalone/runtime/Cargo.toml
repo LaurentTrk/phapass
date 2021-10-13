@@ -88,6 +88,8 @@ phala-pallets = { default-features = false, path = "../../pallets/phala", packag
 pallet-bridge = { default-features = false, path = "../../pallets/bridge", package = "pallet-bridge" }
 pallet-bridge-transfer = { default-features = false, path = "../../pallets/bridge_transfer", package = "pallet-bridge-transfer" }
 
+pallet-phapass = { default-features = false, path = "../../pallets/phapass", package = "pallet-phapass" }
+
 native-nostd-hasher = { path = "../../native-nostd-hasher", optional = true }
 
 [build-dependencies]
@@ -159,6 +161,7 @@ std = [
 	"frame-try-runtime/std",
 	"sp-npos-elections/std",
 	"pallet-kitties/std",
+	"pallet-phapass/std",
 	"phala-pallets/std",
 	"pallet-bridge/std",
 	"pallet-bridge-transfer/std",

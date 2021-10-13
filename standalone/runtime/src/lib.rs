@@ -98,6 +98,7 @@ use constants::{time::*, currency::*};
 use sp_runtime::generic::Era;
 
 pub use pallet_kitties;
+pub use pallet_phapass;
 pub use phala_pallets::{
 	pallet_mq,
 	pallet_ott,
@@ -1046,6 +1047,11 @@ impl pallet_kitties::Config for Runtime {
 	type Randomness = RandomnessCollectiveFlip;
 }
 
+impl pallet_phapass::Config for Runtime {
+	type Event = Event;
+}
+
+
 parameter_types! {
 	pub const BridgeChainId: u8 = 1;
 	pub const ProposalLifetime: BlockNumber = 50;
@@ -1176,6 +1182,7 @@ construct_runtime!(
 		PhalaMining: pallet_mining::{Pallet, Call, Event<T>, Storage, Config},
 		PhalaStakePool: pallet_stakepool::{Pallet, Call, Event<T>, Storage},
 		PhalaOneshotTransfer: pallet_ott::{Pallet, Call, Event<T>, Storage},
+		PhaPass: pallet_phapass::{Pallet, Call, Storage, Event<T>},
 	}
 );
 
