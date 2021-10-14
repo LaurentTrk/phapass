@@ -8,7 +8,7 @@ subtitle: A password manager on Phala
 
 This project has been developed for the [Advanced Phala Challenge](https://github.com/Phala-Network/Encode-Hackathon-2021/blob/master/advanced-challenge.md) of the [Encode Polkadot Hackathon](https://www.encode.club/polkadot-club-hackathon).
 
-It tries to demonstrate how we could rely on the Phala Confidential Contract feature to keep track of passwords, providing a non custodial and decentralized password manager, embedded in a browser extension.
+It tries to demonstrate how we could rely on the Phala Confidential Contract feature to keep track of passwords, providing a **non custodial and decentralized password manager**, embedded in a browser extension.
 
 {: .box-note}
 As the project requires non published custom browser extensions and deals with sensitive informations (your passwords !), there is no online demo of the project but you could have a look at [this short video](https://www.youtube.com/watch?v=dQw4w9WgXcQ) to see how it works.
