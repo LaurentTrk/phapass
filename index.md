@@ -31,7 +31,7 @@ I have been using a password manager for many years now, but sometimes I have do
 
 Of course, these applications are often opensource and regularly audited, but they are still proprietary solutions, or you have to manage the synchronization and backup of your data yourself, often using other proprietary cloud solutions.
 
-All this remains very centralized...
+**All this remains very centralized...**
 
 I discovered [Phala](https://phala.network/) last year during the [Polkadot Hello World hackathon](https://gitcoin.co/hackathon/polkadot/onboard), and I thought that this decentralized blockchain and its [trusted and confidential](https://phala.network/en/technology) nature could be the perfect candidate for an experimentation around password management.
 
@@ -106,7 +106,15 @@ As the user already uses the Polkadot JS extension, it seemed obvious to me that
 
 ### Enhance extension UI
 
-Once everything was running smoothly, I started to craft a more friendly UI, proposing a tutorial for the user vault creation and a list of the stored credentials. 
+Once everything was running smoothly, I started to craft a more friendly UI
+
+#### Tutorial for the vault creation
+
+![](./tutorial.png)
+
+#### List of credentials
+
+![](./vault.png)
 
 ### Deal with asynchronous commands
 
