@@ -1,8 +1,9 @@
 remote_theme: daattali/beautiful-jekyll
 
 title: PhaPass
+subtitle: A password manager using Phala
 author: Laurent Turek
-gh-repo: https://github.com/LaurentTrk/phapass
+gh-repo: LaurentTrk/phapass
 gh-badge: star,watch,fork,follow
 title-img: /phala-34.png
 
