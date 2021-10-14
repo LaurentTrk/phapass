@@ -1,3 +1,5 @@
+# PhaPass, a password manager on Phala
+
 A project for the [Advanced Phala Challenge](https://github.com/Phala-Network/Encode-Hackathon-2021/blob/master/advanced-challenge.md) of the [Encode Polkadot Hackathon](https://www.encode.club/polkadot-club-hackathon).
 
 It tries to demonstrate how we could rely on the Phala Confidential Contract feature to keep track of passwords.
