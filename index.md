@@ -8,10 +8,10 @@ subtitle: A password manager on Phala
 
 This project has been developed for the [Advanced Phala Challenge](https://github.com/Phala-Network/Encode-Hackathon-2021/blob/master/advanced-challenge.md) of the [Encode Polkadot Hackathon](https://www.encode.club/polkadot-club-hackathon).
 
-It tries to demonstrate how we could rely on the Phala Confidential Contract feature to keep track of passwords.
+It tries to demonstrate how we could rely on the Phala Confidential Contract feature to keep track of passwords, providing a non custodial and decentralized password manager, embedded in a browser extension.
 
 {: .box-note}
-As the project requires custom non published browser extensions and deals with sensitive informations (your passwords !), there is no online demo of the project but you could have a look at [this short video](https://www.youtube.com/watch?v=dQw4w9WgXcQ) to see how it works.
+As the project requires non published custom browser extensions and deals with sensitive informations (your passwords !), there is no online demo of the project but you could have a look at [this short video](https://www.youtube.com/watch?v=dQw4w9WgXcQ) to see how it works.
 
 [This repository](https://github.com/LaurentTrk/phapass) holds the PhaPass blockchain code, which implements the [PhaPass contract](https://github.com/LaurentTrk/phapass/blob/phapass/crates/phactory/src/contracts/phapass.rs).
 
@@ -66,7 +66,12 @@ My first idea was to embed the existing [substrate template](https://github.com/
 ### Change the Polkadot.JS extension
 
 Once I was done with the packaging of the extension, I quickly understood that it couldn't work: it was impossible to use the original Polkadot JS extension from another extension.  
+
 So I had to [modify the Polkadot JS extension](https://github.com/polkadot-js/extension/issues/849) to allow [communication with other extensions](https://github.com/LaurentTrk/extension/commit/90e130db2f79f1def9d332857aaa4c63c6a3f23a), but also modify the [client code](https://github.com/LaurentTrk/js-sdk/blob/phapass/packages/phapass-extension/lib/polkadotExtension.ts) to make it work (we cannot use the `extension-dapp` client package).
+
+{: .box-note}
+It sounds obvious to me that **the Polkadot JS extension must be used**, to minimize users inconvenience.  
+Every Dotsama user is using the Polkadot JS extension, and surely doesn't want to use another one to manage his accounts...
 
 ### Integrate the Phala JS SDK
 
@@ -103,10 +108,19 @@ Once everything was running smoothly, I started to craft a more friendly UI, pro
 
 ### Deal with asynchronous commands
 
+To modify the user's credentials, commands are sent to the confidential contract.  
+
+**The problem is that these commands are asynchronous**, and even if you are waiting for blocks finalization, the command execution is not guaranteed. 
+
+So I had to find a way to be notify when the command is finished, and chose to send a message from the contract to a pallet which will then deposit an event to the blockchain.
+
+The JS client of the extension will wait for this event as a notification of the command execution.
 
 ---
 
 ## Challenges I ran into
+
+During this hackathon, I ran into many challenges and issues, but the best and funniest were :
 
 * Integrating the JS SDK in the extension 
 * Calling the Polkadot.JS extension from another extension
@@ -117,7 +131,7 @@ Once everything was running smoothly, I started to craft a more friendly UI, pro
 
 ## What's next
 
-The (_very_) minimal viable product works :) but it's still a lot of work to do :
+The (_very_) minimal viable product is functionnal :) but it's still a lot of work to do :
 
 * At this time, only simple HTML form is correcly detected, there is so many ways to input passwords in web pages ! And we should support them all...
 * Not to mention that we need to support others browsers.
