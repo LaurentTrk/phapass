@@ -4,6 +4,7 @@ title: PhaPass
 subtitle: A password manager on Phala
 gh-repo: laurenttrk/phapass
 gh-badge: [star, fork, follow]
+cover-img: /PolkadotPhalaEncodeHackathon.png
 ---
 
 **A project for the [Advanced Phala Challenge](https://github.com/Phala-Network/Encode-Hackathon-2021/blob/master/advanced-challenge.md) of the [Encode Polkadot Hackathon](https://www.encode.club/polkadot-club-hackathon).**
