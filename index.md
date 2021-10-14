@@ -108,7 +108,7 @@ As the user already uses the Polkadot JS extension, it seemed obvious to me that
 
 ### Enhance extension UI
 
-Once everything was running smoothly, I started to craft a more friendly UI
+Once everything was running smoothly, I started to craft a more friendly UI.
 
 #### Tutorial for the vault creation
 
