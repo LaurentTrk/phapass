@@ -23,6 +23,7 @@ The frontend part of this project is served by a [Chrome Extension](https://deve
 As a Hackathon project, this is not ready for production use.  
 **Use it at your own risks :)**
 
+---
 
 ## Inspiration
 
@@ -36,16 +37,9 @@ I discovered [Phala](https://phala.network/) last year during the [Polkadot Hell
 
 And so here is the **PhaPass** project, which aims to demonstrate how you can use the Phala blockchain to store your passwords and use them directly in your favorite browser :)
 
+---
 
-## What it does
-
-### Store your passwords in a Phala confidential contract
-
-
-
-
-
-### From a technical point of view
+## How it works ?
 
 Technically, the project is all about developing a Phala contract to store and deal with user credentials, and a Chrome Browser Extension that will use this contract.
 
@@ -110,7 +104,7 @@ Once everything was running smoothly, I started to craft a more friendly UI, pro
 ### Deal with asynchronous commands
 
 
-
+---
 
 ## Challenges I ran into
 
@@ -119,9 +113,11 @@ Once everything was running smoothly, I started to craft a more friendly UI, pro
 * Implementing the decryption feature to the Polkadot.JS extension (still a _work in progress_)
 * Coding for the first time in Typescript
 
+---
+
 ## What's next
 
-The minimal viable product works :) but it's still a lot of work to do :
+The (_very_) minimal viable product works :) but it's still a lot of work to do :
 
 * At this time, only simple HTML form is correcly detected, there is so many ways to input passwords in web pages ! And we should support them all...
 * Not to mention that we need to support others browsers.
