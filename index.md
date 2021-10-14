@@ -50,6 +50,8 @@ Technically, the project is all about developing a Phala contract to store and d
 * **Option Page**: the unique UI of the extension. It displays a tutorial for the user vault creation, or the list of the user credentials.
 * **Content Script**: this code is injected into the visited page, it detects manually input credentials to save to the user vault, or inject already saved credentials in visited page.
 
+---
+
 ## How I built it
 
 ### Create a minimal contract 
