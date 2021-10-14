@@ -2,15 +2,16 @@
 layout: page
 title: PhaPass
 subtitle: A password manager on Phala
-gh-repo: laurenttrk/phapass
-gh-badge: [star, fork, follow]
 ---
-
-**A project for the [Advanced Phala Challenge](https://github.com/Phala-Network/Encode-Hackathon-2021/blob/master/advanced-challenge.md) of the [Encode Polkadot Hackathon](https://www.encode.club/polkadot-club-hackathon).**
 
 ![](./PolkadotPhalaEncodeHackathon.png)
 
-This project tries to demonstrate how we could rely on the Phala Confidential Contract feature to keep track of passwords.
+This project has been developed for the [Advanced Phala Challenge](https://github.com/Phala-Network/Encode-Hackathon-2021/blob/master/advanced-challenge.md) of the [Encode Polkadot Hackathon](https://www.encode.club/polkadot-club-hackathon).
+
+It tries to demonstrate how we could rely on the Phala Confidential Contract feature to keep track of passwords.
+
+{: .box-note}
+As the project requires custom non published browser extensions and deals with sensitive informations (your passwords !), there is no online demo of the project but you could have a look at [this short video](https://www.youtube.com/watch?v=dQw4w9WgXcQ) to see how it works.
 
 [This repository](https://github.com/LaurentTrk/phapass) holds the PhaPass blockchain code, which implements the [PhaPass contract](https://github.com/LaurentTrk/phapass/blob/phapass/crates/phactory/src/contracts/phapass.rs).
 
@@ -18,7 +19,7 @@ See the [Phala instructions](https://github.com/LaurentTrk/phapass/blob/phapass/
 
 The frontend part of this project is served by a [Chrome Extension](https://developer.chrome.com/docs/extensions/) based on the [Phala JS SDK](https://github.com/Phala-Network/js-sdk). The related code can be found in [this fork](https://github.com/LaurentTrk/js-sdk).
 
-**As a Hackathon project, this is not ready for production use. Use it at your own risks :)**
+As a Hackathon project, this is not ready for production use. Use it at your own risks :)
 {: .box-warning}
 
 ## Inspiration
