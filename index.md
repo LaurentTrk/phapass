@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: PhaPass
 subtitle: A password manager on Phala
 gh-repo: laurenttrk/phapass
