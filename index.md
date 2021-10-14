@@ -158,3 +158,14 @@ The (_very_) minimal viable product is functionnal :) but it's still a lot of wo
 I hope you enjoy this project as much as I enjoyed to do it !
 
 **Thank you for reading me.**
+
+----
+
+My previous hackathons projects:
+- [Ki.Dot, a substrate base blockchain to help microfunding](https://devpost.com/software/ki-dot-a-substrate-based-blockchain-to-help-micro-funding) for the [Chainlink Virtual Hackathon 2020](https://chain.link/hackathon/2020)
+- [My submission](https://github.com/LaurentTrk/hello-world-by-polkadot) for the [Hello World Polkadot Hackathon](https://gitcoin.co/hackathon/polkadot/onboard)
+
+
+
+
+
