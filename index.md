@@ -57,15 +57,34 @@ Technically, the project is all about developing a Phala contract to store and d
 
 ### Create a minimal contract 
 
+I started with writing a minimal version of the PhaPass contract, inspired by the [available sample](https://github.com/Phala-Network/phala-blockchain/blob/helloworld/pruntime/enclave/src/contracts/helloworld.rs) used in the previous hackathon.  
+
 ### Create a minimal Chrome extension
+
+As the frontend Phala sample was a bit out of date, I started working on the Chrome extension part.  
+I found some useful informations in the [official documentation](https://developer.chrome.com/docs/extensions/), and also some good template to start with by looking through Github repos.
+
+My first idea was to embed the existing [substrate template](https://github.com/substrate-developer-hub/substrate-front-end-template) and try to play with the Phala dev blockchain through this UI embedded in the extension.
 
 ### Change the Polkadot.JS extension
 
+Once I was done with the packaging of the extension, I quickly understood that it couldn't work: it was impossible to use the original Polkadot JS extension from another extension. 
+So I had to [modify the Polkadot JS extension](https://github.com/polkadot-js/extension/issues/849) to allow [communication with other extensions](https://github.com/LaurentTrk/extension/commit/90e130db2f79f1def9d332857aaa4c63c6a3f23a), but also modify the [client code](https://github.com/LaurentTrk/js-sdk/blob/phapass/packages/phapass-extension/lib/polkadotExtension.ts) to make it work (we cannot use the `extension-dapp` client package).
+
 ### Integrate the Phala JS SDK
+
+When the Phala team released the js sdk, I was both super excited and a bit down: they had changed the whole software stack, so I had to redo the whole integration in the extension...  
+But it was a lot of fun !
+
+At this time, I was able to contact my confidential contract from my extension, using the Polkadot JS extension to sign the certificate needed by the Phala SDK. Great !! 
 
 ### Enhance the PhaPass contract
 
+I had the 2 basic features: add a credential and remove a credential. Pretty easy, regarding the rest of the journey ;)
+
 ### Add local encryption
+
+
 
 ### Enhance extension UI
 
