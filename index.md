@@ -147,7 +147,8 @@ The (_very_) minimal viable product is functionnal :) but it's still a lot of wo
 * Not to mention that we need to support others browsers.
 * Some features need to be integrated to the Polkadot JS extension : [external listeners](https://github.com/polkadot-js/extension/issues/849) and encryption/decryption
 * [sr25519 account pairs seems not supported for encryption/decryption](https://github.com/polkadot-js/common/issues/1124) which is a strong limitation as sr25519 is the default type for Polkadot.
-* As soon as public contracts are available on Phala (Ink! Contract ?), it _could_ make sense to use them.
+* But in fact, do we really need local encryption ? 
+* As soon as public/users contracts are available on Phala (Ink! Contract ?), it _could_ make sense to use them.
 * _(Most of)_ Edge/error cases are not handled correclty.
 * The extension needs to be [published](https://developer.chrome.com/docs/webstore/publish/). 
 * **Basic features:** add credential manually, change credential, generate random password, lock vault
