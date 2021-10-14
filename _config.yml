@@ -1,5 +1,10 @@
 remote_theme: daattali/beautiful-jekyll
 
+title: PhaPass
+
+author: Laurent Turek
+
+
 social-network-links:
   github: LaurentTrk
   twitter: LaurentTrk
