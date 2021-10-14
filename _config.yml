@@ -4,12 +4,13 @@ title: PhaPass
 author: Laurent Turek
 gh-repo: https://github.com/LaurentTrk/phapass
 gh-badge: star,watch,fork,follow
+title-img: /phala-34.png
 
 navbar-links:
   Encode Polkadot Hackathon: "https://www.encode.club/polkadot-club-hackathon"
   Phala Network: "https://phala.network"
   About Me: "https://www.linkedin.com/in/laurenttrk"
- 
+
   
 social-network-links:
   github: LaurentTrk
