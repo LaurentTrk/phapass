@@ -6,7 +6,8 @@ subtitle: A password manager using Phala
 author: Laurent Turek
 gh-repo: LaurentTrk/phapass
 gh-badge: [ star ] 
-title-img: /phala-34.png
+title-img: /ganache.png
+avatar: /phala-34.png
 
 navbar-links:
   Encode Polkadot Hackathon: "https://www.encode.club/polkadot-club-hackathon"
