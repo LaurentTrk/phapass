@@ -151,8 +151,9 @@ The (_very_) minimal viable product is functionnal :) but it's still a lot of wo
 * As soon as public/users contracts are available on Phala (Ink! Contract ?), it _could_ make sense to use them.
 * _(Most of)_ Edge/error cases are not handled correclty.
 * The extension needs to be [published](https://developer.chrome.com/docs/webstore/publish/). 
+* Integrating [Substrate Connect](https://github.com/paritytech/substrate-connect) into the extension could be great !
 * **Basic features:** add credential manually, change credential, generate random password, lock vault
-* **'Nice to have' features:** delegate your password to another user, import/export
+* **'Nice to have' features:** delegate your password to another user, import/export, mobile support
 
 I hope you enjoy this project as much as I enjoyed to do it !
 
