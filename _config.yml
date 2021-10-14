@@ -4,7 +4,11 @@ title: PhaPass
 subtitle: A password manager using Phala
 author: Laurent Turek
 gh-repo: LaurentTrk/phapass
-gh-badge: star,watch,fork,follow
+gh-badge:
+  - star
+  - watch
+  - fork
+  - follow
 title-img: /phala-34.png
 
 navbar-links:
