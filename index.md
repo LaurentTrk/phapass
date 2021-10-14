@@ -68,15 +68,16 @@ My first idea was to embed the existing [substrate template](https://github.com/
 
 ### Change the Polkadot.JS extension
 
-Once I was done with the packaging of the extension, I quickly understood that it couldn't work: it was impossible to use the original Polkadot JS extension from another extension. 
+Once I was done with the packaging of the extension, I quickly understood that it couldn't work: it was impossible to use the original Polkadot JS extension from another extension.  
 So I had to [modify the Polkadot JS extension](https://github.com/polkadot-js/extension/issues/849) to allow [communication with other extensions](https://github.com/LaurentTrk/extension/commit/90e130db2f79f1def9d332857aaa4c63c6a3f23a), but also modify the [client code](https://github.com/LaurentTrk/js-sdk/blob/phapass/packages/phapass-extension/lib/polkadotExtension.ts) to make it work (we cannot use the `extension-dapp` client package).
 
 ### Integrate the Phala JS SDK
 
-When the Phala team released the js sdk, I was both super excited and a bit down: they had changed the whole software stack, so I had to redo the whole integration in the extension...  
+When the Phala team released the js sdk, I was both super excited and a bit disappointed: they had changed the whole software stack, so I had to redo the whole integration in the extension...  
+
 But it was a lot of fun !
 
-At this time, I was able to contact my confidential contract from my extension, using the Polkadot JS extension to sign the certificate needed by the Phala SDK. Great !! 
+**At this time, I was able to contact my confidential contract from my extension, using the Polkadot JS extension to sign the certificate needed by the Phala SDK. Great !!**
 
 ### Enhance the PhaPass contract
 
@@ -84,11 +85,28 @@ I had the 2 basic features: add a credential and remove a credential. Pretty eas
 
 ### Add local encryption
 
+This was my biggest dilemma: **should I encrypt the user's passwords or not ?**
+
+Using a privacy preserving blockchain like Phala, it should not be a concern, but at the same time, as a user, would I be willing to give away the most secret of my passwords in clear text ?
+
+Well, I decided that, in any case, it should be a good and challenging feature to demonstrate for this hackathon. 
+
+As the user already uses the Polkadot JS extension, it seemed obvious to me that it should also be used for locally encryption/decryption of the passwords. 
+
+**Problem #1** :  this feature is not available in the official extension, so I had to add it to the one I used. 
+
+**Problem #2** :  the encryption/decryption feature seems to only work with ed25519 user accounts, so I had to change the default account type to ed25519 (instead of the standard sr25519 used by Polkadot JS)
+
+**Problem #3** :  the Phala JS SDK was not working with ed25519 accounts, a [quick fix](https://github.com/Phala-Network/js-sdk/pull/1) was needed.
 
 
 ### Enhance extension UI
 
-### Fix bugs ;)
+Once everything was running smoothly, I started to craft a more friendly UI, proposing a tutorial for the user vault creation and a list of the stored credentials. 
+
+### Deal with asynchronous commands
+
+
 
 
 ## Challenges I ran into
