@@ -99,6 +99,8 @@ As the user already uses the Polkadot JS extension, it seemed obvious to me that
 
 **Problem #1** :  this feature is [not available](https://github.com/polkadot-js/extension/issues/691) in the official extension, so I had to [add it](https://github.com/LaurentTrk/extension/commit/29df8d2fa3c54553d853b38b772aa90e357ba1f5) to the one I used. 
 
+![](./decrypt.png){: .mx-auto.d-block :}
+
 **Problem #2** :  the encryption/decryption feature seems to [only work with ed25519](https://github.com/polkadot-js/common/issues/1124) user accounts, so I had to change the default account type to ed25519 (instead of the standard sr25519 used by Polkadot JS)
 
 **Problem #3** :  the Phala JS SDK was not working with ed25519 accounts, a [quick fix](https://github.com/Phala-Network/js-sdk/pull/1) was needed.
