@@ -121,7 +121,6 @@ The JS client of the extension will wait for this event as a notification of the
 ## Challenges I ran into
 
 During this hackathon, I ran into many challenges and issues, but the best and funniest were :
-
 * Integrating the JS SDK in the extension 
 * Calling the Polkadot.JS extension from another extension
 * Implementing the decryption feature to the Polkadot.JS extension (still a _work in progress_)
@@ -132,7 +131,6 @@ During this hackathon, I ran into many challenges and issues, but the best and f
 ## What's next
 
 The (_very_) minimal viable product is functionnal :) but it's still a lot of work to do :
-
 * At this time, only simple HTML form is correcly detected, there is so many ways to input passwords in web pages ! And we should support them all...
 * Not to mention that we need to support others browsers.
 * Some features need to be integrated to the Polkadot JS extension : [external listeners](https://github.com/polkadot-js/extension/issues/849) and encryption/decryption
