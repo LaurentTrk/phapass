@@ -4,7 +4,13 @@ title: PhaPass
 
 author: Laurent Turek
 
+navbar-links:
+  Encode Polkadot Hackathon: "https://www.encode.club/polkadot-club-hackathon"
+  Phala Network: "https://phala.network"
+  PhaPass Code: "https://github.com/LaurentTrk/phapass"
 
+  
+  
 social-network-links:
   github: LaurentTrk
   twitter: LaurentTrk
