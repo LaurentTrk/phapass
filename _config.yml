@@ -1,15 +1,15 @@
 remote_theme: daattali/beautiful-jekyll
 
 title: PhaPass
-
 author: Laurent Turek
+gh-repo: https://github.com/LaurentTrk/phapass
+gh-badge: star,watch,fork,follow
 
 navbar-links:
   Encode Polkadot Hackathon: "https://www.encode.club/polkadot-club-hackathon"
   Phala Network: "https://phala.network"
-  PhaPass Code: "https://github.com/LaurentTrk/phapass"
-
-  
+  About Me: "https://www.linkedin.com/in/laurenttrk"
+ 
   
 social-network-links:
   github: LaurentTrk
