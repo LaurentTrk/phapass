@@ -14,7 +14,7 @@ The frontend part of this project is served by a [Chrome Extension](https://deve
 
 ## Inspiration
 
-I have been using a password manager for many years now, but sometimes I have doubts about the privacy and security of the data I store in it.
+I have been using a password manager for many years now, but sometimes I have doubts about the privacy and security of the data I store there.
 
 Of course, these applications are often opensource and regularly audited, but they are still proprietary solutions, or you have to manage the synchronization and backup of your data yourself, often using other proprietary cloud solutions.
 
