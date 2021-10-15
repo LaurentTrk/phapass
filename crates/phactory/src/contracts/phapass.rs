@@ -377,4 +377,92 @@ pub mod tests {
             Err(_) => assert!(false, "ListCredentials query should succeed"),
         }     
     }
+
+    #[test]
+    fn add_credential_should_succeed() {
+        // Given
+        let mut testing_module: PhaPass = PhaPass::new();
+        let alice_private_keys = "Super Private Keys".to_string();
+        let command_id = "1".to_string();
+        let username = "I.Am.A.User".to_string();
+        let password = "Secret.Password".to_string();
+        let url = "http://this.is.an.url".to_string();
+        let alice_address_bytes = hex::decode(ALICE_ADDRESS).expect("Failed to decode AccountId hex");
+        let message_origin = MessageOrigin::AccountId(PhalaMqAccountId::from_slice(alice_address_bytes.as_slice()));
+        let create_vault_command = Command::CreateVault { keys: alice_private_keys.clone(), command_id: "1".to_string()};
+        let _ = testing_module.handle_command(message_origin.clone(), create_vault_command);
+        
+        // When
+        let command = Command::AddCredential { command_id, url: url.clone(), username: username.clone() , password: password.clone() };
+        match testing_module.handle_command(message_origin.clone(), command){
+            Ok(_) => assert!(true),
+            Err(_) => assert!(false, "Add credential command should succeed"),
+        }
+        
+        // Then
+        match testing_module.handle_query(Option::Some(&alice_account()), Request::ListCredentials) {
+            Ok(result) => {
+                match result {
+                    Response::Credentials(credentials) => {
+                        assert_eq!(credentials.len(), 1, "One credential should be returned");
+                    }
+                    _ => assert!(false, "ListCredentials should return credentials")
+                }
+            },
+            Err(_) => assert!(false, "ListCredentials query should succeed"),
+        }     
+        match testing_module.handle_query(Option::Some(&alice_account()), Request::GetCredential {url}) {
+            Ok(result) => {
+                match result {
+                    Response::ExistingCredential(credential) => {
+                        assert_eq!(credential.username, username, "Username should match");
+                        assert_eq!(credential.password, password, "Password should match");
+                    }
+                    _ => assert!(false, "GetCredential should return credential")
+                }
+            },
+            Err(_) => assert!(false, "GetCredential query should succeed"),
+        }     
+    }
+
+    #[test]
+    fn remove_credential_should_succeed() {
+        // Given
+        let mut testing_module: PhaPass = PhaPass::new();
+        let alice_private_keys = "Super Private Keys".to_string();
+        let command_id = "1".to_string();
+        let username = "I.Am.A.User".to_string();
+        let password = "Secret.Password".to_string();
+        let url = "http://this.is.an.url".to_string();
+        let alice_address_bytes = hex::decode(ALICE_ADDRESS).expect("Failed to decode AccountId hex");
+        let message_origin = MessageOrigin::AccountId(PhalaMqAccountId::from_slice(alice_address_bytes.as_slice()));
+        let create_vault_command = Command::CreateVault { keys: alice_private_keys.clone(), command_id: "1".to_string()};
+        let _ = testing_module.handle_command(message_origin.clone(), create_vault_command);
+        let add_credential_command = Command::AddCredential { command_id:command_id.clone(), url: url.clone(), username: username.clone() , password: password.clone() };
+        let _ = testing_module.handle_command(message_origin.clone(), add_credential_command);
+
+        // When
+        let command = Command::RemoveCredential { command_id, url: url.clone() };
+        match testing_module.handle_command(message_origin.clone(), command){
+            Ok(_) => assert!(true),
+            Err(_) => assert!(false, "Remove credential command should succeed"),
+        }
+        
+        // Then
+        match testing_module.handle_query(Option::Some(&alice_account()), Request::ListCredentials) {
+            Ok(result) => {
+                match result {
+                    Response::Credentials(credentials) => {
+                        assert_eq!(credentials.len(), 0, "No credential should be returned");
+                    }
+                    _ => assert!(false, "ListCredentials should return credentials")
+                }
+            },
+            Err(_) => assert!(false, "ListCredentials query should succeed"),
+        }     
+        match testing_module.handle_query(Option::Some(&alice_account()), Request::GetCredential {url}) {
+            Ok(result) => assert!(false, "GetCredential query should not succeed"),
+            Err(_) => assert!(true),
+        }     
+    }
 }
