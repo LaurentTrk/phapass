@@ -339,7 +339,7 @@ pub mod tests {
         let alice_private_keys = "Super Private Keys".to_string();
         let alice_address_bytes = hex::decode(ALICE_ADDRESS).expect("Failed to decode AccountId hex");
         let message_origin = MessageOrigin::AccountId(PhalaMqAccountId::from_slice(alice_address_bytes.as_slice()));
-        let command = Command::CreateVault { keys: alice_private_keys.clone()};
+        let command = Command::CreateVault { keys: alice_private_keys.clone(), command_id: "1".to_string()};
         match testing_module.handle_command(message_origin, command){
             Ok(_) => assert!(true),
             Err(_) => assert!(false, "Vault creation command should succeed"),
