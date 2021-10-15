@@ -11,7 +11,7 @@ This project has been developed for the [Advanced Phala Challenge](https://githu
 It tries to demonstrate how we could rely on the Phala Confidential Contract feature to keep track of passwords, providing a **non custodial and decentralized password manager**, embedded in a browser extension.
 
 {: .box-note}
-As the project requires non published custom browser extensions and deals with sensitive informations (your passwords !), there is no online demo of the project but you could have a look at [this short video](https://www.youtube.com/watch?v=dQw4w9WgXcQ) to see how it works.
+As the project requires non published custom browser extensions and deals with sensitive informations (your passwords !), there is no online demo of the project but you could have a look at [this short video](https://youtu.be/sQ1hbWSHnqg) to see how it works.
 
 [This repository](https://github.com/LaurentTrk/phapass) holds the PhaPass blockchain code, which implements the [PhaPass contract](https://github.com/LaurentTrk/phapass/blob/phapass/crates/phactory/src/contracts/phapass.rs).
 
