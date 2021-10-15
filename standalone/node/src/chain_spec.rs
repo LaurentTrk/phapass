@@ -409,7 +409,7 @@ fn development_config_genesis() -> GenesisConfig {
 /// Development config (single validator Alice)
 pub fn development_config() -> ChainSpec {
 	ChainSpec::from_genesis(
-		"Phala Development",
+		"PhaPass Development",
 		"phala_dev",
 		ChainType::Development,
 		move || GenesisExt {
@@ -427,7 +427,7 @@ pub fn development_config() -> ChainSpec {
 /// Development config (single validator Alice, custom block duration)
 pub fn development_config_custom_block_duration(bd: u64) -> ChainSpec {
 	ChainSpec::from_genesis(
-		"Phala Development",
+		"PhaPass Development",
 		"phala_dev",
 		ChainType::Development,
 		move || GenesisExt {
